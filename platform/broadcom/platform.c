@@ -442,10 +442,11 @@ int sta_associated(int ap_index, wifi_associated_dev_t *associated_dev)
 
 void prepare_param_name(char *dest, char *interface_name, char *prefix)
 {
-    memset(dest, 0, strlen(dest));
+    if (dest == NULL || interface_name == NULL || prefix == NULL) {
+        return;
+    }
 
-    strncpy(dest, interface_name, strlen(interface_name));
-    strcat(dest, prefix);
+    snprintf(dest, NVRAM_NAME_SIZE, "%s%s", interface_name, prefix);
 }
 
 void set_decimal_nvram_param(char *param_name, unsigned int value)
@@ -1216,7 +1217,7 @@ int platform_set_radio_pre_init(wifi_radio_index_t index, wifi_radio_operationPa
 	        char *buff = nvram_get(cmd);
             if(buff != NULL && (strcmp(buff,"") != 0))
             {
-                sprintf(chanbuff, "acs_cli2 -i wl%d set acs_excl_chans %s &", index, buff);
+                snprintf(chanbuff, sizeof(chanbuff), "acs_cli2 -i wl%d set acs_excl_chans %s &", index, buff);
                 system(chanbuff);
             }
 
@@ -1225,20 +1226,20 @@ int platform_set_radio_pre_init(wifi_radio_index_t index, wifi_radio_operationPa
             char *weight_string = generate_channel_weight_string(index, operationParam->channel);
             if (weight_string != NULL) {
                 set_string_nvram_param(cmd, weight_string);
-                sprintf(cmd, "acs_cli2 -i wl%d set acs_channel_weights %s &", index, weight_string);
+                snprintf(chanbuff, sizeof(chanbuff), "acs_cli2 -i wl%d set acs_channel_weights %s &", index, weight_string);
                 free(weight_string);
                 system(cmd);
             }
 
             /* Run acsd2 autochannel */
             memset(cmd, 0 ,sizeof(cmd));
-            sprintf(cmd, "acs_cli2 -i wl%d autochannel &", index);
+            snprintf(cmd, sizeof(cmd), "acs_cli2 -i wl%d autochannel &", index);
             system(cmd);
         }
         else {
             /* Set acsd2 disabled mode */
             wifi_hal_dbg_print("%s():%d Disabling autoChannel in radio index %d\n", __FUNCTION__, __LINE__, index);
-            sprintf(cmd, "acs_cli2 -i wl%d mode 0 &", index);
+            snprintf(cmd, sizeof(cmd), "acs_cli2 -i wl%d mode 0 &", index);
             system(cmd);
         }
     }
@@ -2388,9 +2389,9 @@ int platform_create_vap(wifi_radio_index_t r_index, wifi_vap_info_map_t *map)
             memset(temp_buff, 0 ,sizeof(temp_buff));
             prepare_param_name(param_name, interface_name, "_wps_mode");
             if (map->vap_array[index].u.bss_info.wps.enable) {
-                strcpy(temp_buff, "enabled");
+                snprintf(temp_buff, sizeof(temp_buff), "%s", "enabled");
             } else {
-                strcpy(temp_buff, "disabled");
+                snprintf(temp_buff, sizeof(temp_buff), "%s", "disabled");
             }
             set_string_nvram_param(param_name, temp_buff);
 
