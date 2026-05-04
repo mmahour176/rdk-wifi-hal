@@ -668,12 +668,14 @@ INT wifi_hal_wps_event(wifi_wps_event_t data)
     return RETURN_ERR;
 }
 
-INT wifi_hal_hostApGetErouter0Mac(char *out, int out_len)
+#define DEFAULT_EROUTER0_MAC "01:23:12:44:65:ab"
+
+INT wifi_hal_hostApGetErouter0Mac(char *out)
 {
-    if (out == NULL || out_len <= 0) {
+    if (out == NULL) {
         return RETURN_ERR;
     }
-    snprintf(out, out_len, "%s", "01:23:12:44:65:ab");
+    snprintf(out, sizeof(DEFAULT_EROUTER0_MAC), "%s", DEFAULT_EROUTER0_MAC);
     return RETURN_OK;
 }
 
