@@ -4560,7 +4560,11 @@ void update_ecomode_radio_capabilities(wifi_radio_info_t *radio)
     }
 
     radio->capab.index = radio->index;
-    snprintf(radio->capab.ifaceName, sizeof(radio->capab.ifaceName), "%s", radio->name);
+    {
+        char temp_name[sizeof(radio->name)];
+        snprintf(temp_name, sizeof(temp_name), "%s", radio->name);
+        snprintf(radio->capab.ifaceName, sizeof(radio->capab.ifaceName), "%s", temp_name);
+    }
     radio->capab.numSupportedFreqBand = 1;
 
     interface = hash_map_get_first(radio->interface_map);
