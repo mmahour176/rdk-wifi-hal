@@ -672,7 +672,7 @@ INT wifi_hal_wps_event(wifi_wps_event_t data)
 
 INT wifi_hal_hostApGetErouter0Mac(char *out, size_t out_len)
 {
-    if (out == NULL || out_len == 0) {
+    if (out == NULL || out_len < sizeof(DEFAULT_EROUTER0_MAC)) {
         return RETURN_ERR;
     }
     snprintf(out, out_len, "%s", DEFAULT_EROUTER0_MAC);

@@ -3420,6 +3420,8 @@ static void *wifi_dppTestFrameHandler(void *arg)
         }
     	wifi_dpp_dbg_print("%s:%d:Socket signaled Receiving data from socket\n", __func__, __LINE__);
         
+        memset(&saddr, 0, sizeof(saddr));
+        slen = sizeof(saddr);
         if ((ret = recvfrom(sockfd, msg, 1024, 0, (struct sockaddr *)&saddr, &slen)) < 0) {
             if (errno == EINTR || errno == EAGAIN) {
                 continue;
