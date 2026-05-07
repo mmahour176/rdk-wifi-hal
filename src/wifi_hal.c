@@ -659,6 +659,7 @@ INT wifi_hal_get_default_wps_pin(char *pin)
 
 INT wifi_hal_wps_event(wifi_wps_event_t data)
 {
+    wifi_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__ );
     platform_wps_event_t platform_wps_event_fn;
     if ((platform_wps_event_fn = get_platform_wps_event_fn()) != NULL) {
         wifi_hal_dbg_print("%s:%d: platform wps event callback triggered\n", __func__, __LINE__);
@@ -672,6 +673,7 @@ INT wifi_hal_wps_event(wifi_wps_event_t data)
 
 INT wifi_hal_hostApGetErouter0Mac(char *out, size_t out_len)
 {
+    wifi_rdk_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__ );
     if (out == NULL || out_len < sizeof(DEFAULT_EROUTER0_MAC)) {
         return RETURN_ERR;
     }

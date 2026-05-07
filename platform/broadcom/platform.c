@@ -442,6 +442,7 @@ int sta_associated(int ap_index, wifi_associated_dev_t *associated_dev)
 
 void prepare_param_name(char *dest, char *interface_name, char *prefix)
 {
+    wifi_rdk_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__ );
     if (dest == NULL || interface_name == NULL || prefix == NULL) {
         return;
     }

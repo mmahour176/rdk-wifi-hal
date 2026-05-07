@@ -84,6 +84,7 @@ void wifi_authenticator_run()
 
 void init_radius_config(wifi_interface_info_t *interface)
 {
+    wifi_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__ );
     struct hostapd_bss_config *conf = &interface->u.ap.conf;
 
     if (!interface->vap_initialized && conf->ssid.wpa_passphrase == NULL) {

@@ -4548,6 +4548,7 @@ bool lsmod_by_name(const char *name)
 
 void update_ecomode_radio_capabilities(wifi_radio_info_t *radio)
 {
+    wifi_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__ );
     wifi_interface_info_t *interface;
     wifi_vap_info_t *vap;
     unsigned int channels_2_4g[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};

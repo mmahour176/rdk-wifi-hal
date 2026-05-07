@@ -78,7 +78,7 @@ int create_test_socket()
 
 INT start_receiving_test_frames()
 {
-    wifi_rdk_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__);
+    wifi_rdk_hal_dbg_print("%s:%d: Entry\n", __func__, __LINE__ );
     int sockfd;
     int ret;
     unsigned char msg[2048];

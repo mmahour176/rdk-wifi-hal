@@ -1809,6 +1809,7 @@ int delete_dpp_csign_instance(unsigned int ap_index, wifi_dpp_csign_instance_t *
 
 int wifi_dppCreateCSignIntance(unsigned int ap_index, char *c_sign_key, wifi_dpp_csign_instance_t **inst, unsigned char *sign_key_hash)
 {
+    wifi_dpp_dbg_print("%s : Entry to %d:", __func__, __LINE__ );
 	wifi_dpp_csign_instance_t *instance;
 	int bnlen, offset, b64len;
     unsigned char keyasn1[1024];
